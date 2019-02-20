@@ -7,9 +7,9 @@ import twitter
 from twitter.oauth import write_token_file, read_token_file
 from twitter.oauth_dance import oauth_dance
 
-APP_NAME = 'UCI_CS175_17'
-CONSUMER_KEY = '7t7XuES3E2Pe8Ud99pHWZydsl'
-CONSUMER_SECRET = '0odlreNmpynuPhbrpCoP67qRGyNYsaCW8Gd0vSZKdImmGugKEv'
+APP_NAME = '##########'
+CONSUMER_KEY = '########'
+CONSUMER_SECRET = '#######'
 
 def oauthLogin(app_name = APP_NAME,
                 consumer_key = CONSUMER_KEY, 
