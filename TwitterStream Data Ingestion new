@@ -1,0 +1,46 @@
+use TwitterStream;
+
+create feed TwitterFeed with {
+      "adapter-name": "push_twitter",
+      "type-name": "Tweet",
+      "format": "json",
+      "consumer.key": "7t7XuES3E2Pe8Ud99pHWZydsl",
+      "consumer.secret": "0odlreNmpynuPhbrpCoP67qRGyNYsaCW8Gd0vSZKdImmGugKEv",
+      "access.token": "842595858600288257-Osahs3tI4JRmVNIDUsJlWap5H9jR68l",
+      "access.token.secret": "qjVQsmNqeedgT6Y9XZcHtJbHNx07UM4TMrjriFAKQyX1G",
+      "keywords": "#christmas"
+ };
+
+CREATE FUNCTION ExtractUser(t){
+	(Select VALUE t.user)
+};
+
+
+======== Connect Feeds to Dataset =========
+ 
+use TwitterStream;
+
+connect feed TwitterFeed to dataset Tweets;
+connect feed TwitterFeed to dataset Users apply Function ExtractUser;
+
+start feed TwitterFeed;
+
+========= Display 10 Tweets from Dataset ======
+
+use TwitterStream;
+
+SELECT  * FROM Tweets limit 10;
+
+========= Stop feed and disconnect it from dataset =====
+
+use TwitterStream; 
+
+stop feed TwitterFeed;
+
+disconnect feed TwitterFeed from dataset Tweets;
+
+========= Extract User Data from Tweet and add to User Dataset =====
+
+use TwitterStream; 
+
+INSERT INTO Users (SELECT VALUE ExtractUser(t) FROM Tweets t);

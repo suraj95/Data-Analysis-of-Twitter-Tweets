@@ -1,0 +1,26 @@
+use TwitterStream;
+
+===== Count total number of Tweets ======
+
+SELECT COUNT(*) AS Count FROM Tweets;
+
+===== Display Users Information ordered by Number of Tweets in descending order ======
+
+SELECT t.user.id, t.user.screen_name , COUNT(*) AS TweetCount FROM Tweets t GROUP BY t.user.id, t.user.screen_name ORDER BY TweetCount DESC;
+
+===== Display Tweets from a Specific User =====
+
+SELECT VALUE t FROM Tweets t WHERE t.user.screen_name = "AAPublishingLLC" LIMIT 1;
+
+===== Select Users with a specific screen name ==== 
+
+SELECT * FROM Users u WHERE u.screen_name = "AAPublishingLLC";
+
+==== Select all Hashtags from Tweets ======
+
+SELECT DISTINCT h.text FROM Tweets t, t.extended_tweet.entities.hashtags h LIMIT 1000;
+
+==== Select all Hashtags in lowercase from Tweets ordered by count in descending order ====
+
+SELECT lower(h.text), COUNT(*) AS cnt FROM Tweets t, t.extended_tweet.entities.hashtags h GROUP BY lower(h.text) ORDER BY cnt DESC LIMIT 1000; 
+

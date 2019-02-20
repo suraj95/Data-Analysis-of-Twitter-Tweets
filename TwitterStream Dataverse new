@@ -1,0 +1,16 @@
+DROP DATAVERSE TwitterStream IF EXISTS;
+CREATE DATAVERSE TwitterStream;
+USE TwitterStream;
+
+
+CREATE TYPE User AS OPEN {
+	id: int64
+};
+
+
+CREATE TYPE Tweet AS OPEN {
+	id: int64
+};
+
+CREATE DATASET Tweets (Tweet) PRIMARY KEY id;
+CREATE DATASET Users (User) PRIMARY KEY id;
